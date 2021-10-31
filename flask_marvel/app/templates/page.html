@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container" style="padding: 20px">
+      <div class="card-columns">
+        <div class="card" style="width: 18rem">
+          <img
+          src={{ image1_url }}
+          class="img-fluid"
+          >
+          </img>
+
+          <div class="card-body">
+            <h5 class="card-title">{{ name1 }}</h5>
+            <p class="card-text">
+              Appears in Comics:
+              <ul class="list-unstyled">
+              {% for item in seq1 %}
+                <li><small>{{ item }}</small></li>
+              {% endfor %}
+              </ul>
+            </p>
+            <form method="POST" action="reload">
+            <button name="reload" class="btn btn-primary" value="card1">Reload! </button>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem">
+          <img
+          src={{ image2_url }}
+          class="img-fluid"
+          >
+          </img>
+
+          <div class="card-body">
+            <h5 class="card-title">{{ name2 }}</h5>
+            <p class="card-text">
+              Appears in Comics:
+              <ul class="list-unstyled">
+              {% for item in seq2 %}
+                <li><small>{{ item }}</small></li>
+              {% endfor %}
+              </ul>
+            </p>
+            <form method="POST" action="reload">
+            <button name="reload" class="btn btn-primary" value="card2">Reload! </button>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem">
+          <img
+          src={{ image3_url }}
+          class="img-fluid"
+          >
+          </img>
+
+          <div class="card-body">
+            <h5 class="card-title">{{ name3 }}</h5>
+            <p class="card-text">
+              Appears in Comics:
+              <ul class="list-unstyled">
+              {% for item in seq3 %}
+                <li><small>{{ item }}</small></li>
+              {% endfor %}
+              </ul>
+            </p>
+            <form method="POST" action="reload">
+            <button name="reload" class="btn btn-primary" value="card3">Reload! </button>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem">
+          <img
+          src={{ image4_url }}
+          class="img-fluid"
+          >
+          </img>
+
+          <div class="card-body">
+            <h5 class="card-title">{{ name4 }}</h5>
+            <p class="card-text">
+              Appears in Comics:
+              <ul class="list-unstyled">
+              {% for item in seq4 %}
+                <li><small>{{ item }}</small></li>
+              {% endfor %}
+              </ul>     
+            </p>
+            <form method="POST" action="reload">
+            <button name="reload" class="btn btn-primary" value="card4">Reload! </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
