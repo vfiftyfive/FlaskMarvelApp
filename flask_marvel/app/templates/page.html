@@ -96,6 +96,48 @@
             <button name="reload" class="btn btn-primary" value="card4">Reload! </button>
           </div>
         </div>
+        <div class="card" style="width: 18rem">
+          <img
+          src={{ image5_url }}
+          class="img-fluid"
+          >
+          </img>
+
+          <div class="card-body">
+            <h5 class="card-title">{{ name5 }}</h5>
+            <p class="card-text">
+              Appears in Comics:
+              <ul class="list-unstyled">
+              {% for item in seq3 %}
+                <li><small>{{ item }}</small></li>
+              {% endfor %}
+              </ul>
+            </p>
+            <form method="POST" action="reload">
+            <button name="reload" class="btn btn-primary" value="card5">Reload! </button>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem">
+          <img
+          src={{ image6_url }}
+          class="img-fluid"
+          >
+          </img>
+
+          <div class="card-body">
+            <h5 class="card-title">{{ name6 }}</h5>
+            <p class="card-text">
+              Appears in Comics:
+              <ul class="list-unstyled">
+              {% for item in seq3 %}
+                <li><small>{{ item }}</small></li>
+              {% endfor %}
+              </ul>
+            </p>
+            <form method="POST" action="reload">
+            <button name="reload" class="btn btn-primary" value="card6">Reload! </button>
+          </div>
+        </div>
       </div>
     </div>
   </body>
