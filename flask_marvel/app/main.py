@@ -30,6 +30,8 @@ def main():
     card2 = get_content(host)
     card3 = get_content(host)
     card4 = get_content(host)
+    card5 = get_content(host)
+    card6 = get_content(host)
     
     return render_template('page.html', image1_url=card1['image_url'],
                             image2_url=card2['image_url'],
