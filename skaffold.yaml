@@ -1,0 +1,15 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+metadata:
+  name: demo-marvel-app
+build:
+  artifacts:
+  - image: vfiftyfive/flask_marvel
+    custom:
+      buildCommand: sh build.sh
+  local:
+    push: true
+deploy:
+  kustomize:
+    paths: 
+    - "../app_manifests/overlay/Dev"
