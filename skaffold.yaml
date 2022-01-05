@@ -12,4 +12,4 @@ build:
 deploy:
   kustomize:
     paths: 
-    - "../app_manifests/overlay/Dev"
+    - "/Users/nvermande/Documents/Dev/Ondat/CFD/app_manifests/overlay/dev"
