@@ -1,7 +1,6 @@
 
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, request
 from pymongo import MongoClient
-import sys
 import os
 import random
 
