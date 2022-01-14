@@ -55,7 +55,7 @@ def params_hash(ts):
 def add_mongo_document(replset, document):
     """add_mongo_document adds a document in the 'characters' collection of the 'marvel' MongoDB database.
     """
-    global user_mongo_0, user_mongo_1, user_mongo_2
+    global host
     client = MongoClient([host[0]+":27017", host[1]+":27017", host[2]+":27017"], replicaset=rs_name)
     db = client.marvel
     result = db.characters.insert_one(document)
