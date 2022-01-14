@@ -14,10 +14,13 @@ private_key = os.environ.get('API_PRIVATE_KEY')
 public_key = "ff2b3fe68377a7e6b40b07fff4aeb218"
 characters_path = "characters"
 limit = 100
-user_mongo_0 = "mongodb-0.mongodb.default.svc.cluster.local"
-user_mongo_1 = "mongodb-1.mongodb.default.svc.cluster.local"
-user_mongo_2 = "mongodb-2.mongodb.default.svc.cluster.local"
-rs_name = "marvel-mongo"
+host_list = [os.getenv("MONGO_SEED0"), os.getenv("MONGO_SEED1"), os.getenv("MONGO_SEED2")]
+try:
+    host = ",".join(host_list)
+except TypeError as e:
+    print(f"Mongo environment variables not set properly: {e}")
+    sys.exit(1)
+rs_name = "mongodb"
 delay = 30
 
 def get_marvel_data(url_params, offset):
@@ -53,8 +56,7 @@ def add_mongo_document(replset, document):
     """add_mongo_document adds a document in the 'characters' collection of the 'marvel' MongoDB database.
     """
     global user_mongo_0, user_mongo_1, user_mongo_2
-    client = MongoClient([ user_mongo_0+":27017", user_mongo_1+":27017", 
-                        user_mongo_2+":27017" ], replicaset=replset)
+    client = MongoClient([host[0]+":27017", host[1]+":27017", host[2]+":27017"], replicaset=rs_name)
     db = client.marvel
     result = db.characters.insert_one(document)
     print(f"Created document {document} as {result.inserted_id}")
@@ -74,7 +76,7 @@ def main():
     ts = time.time()
     url_params = "?limit=" + str(limit) + "&ts=" + str(ts) + "&apikey=" + public_key + "&hash=" + str(params_hash(ts))
     data_list = (get_marvel_data(url_params, int(sys.argv[2])))
-    configure_replicaset(user_mongo_0, user_mongo_1, user_mongo_2, rs_name)
+    # configure_replicaset(user_mongo_0, user_mongo_1, user_mongo_2, rs_name)
     for d in data_list:
         add_mongo_document(rs_name, d)
     

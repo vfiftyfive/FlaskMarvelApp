@@ -2,14 +2,21 @@
 from flask import Flask, render_template, request
 from pymongo import MongoClient
 import os
+import sys
 import random
 
 card1, card2, card3, card4, card5, card6 = [], [], [], [], [], []
 app = Flask(__name__)
-host = os.getenv("MONGO_HOST")+":27017"
-
+host_list = [os.getenv("MONGO_SEED0"), os.getenv("MONGO_SEED1"), os.getenv("MONGO_SEED2")]
+try:
+    host = ",".join(host_list)
+except TypeError as e:
+    print(f"Mongo environment variables not set properly: {e}")
+    sys.exit(1)
+rs_name = "mongodb"
+    
 def get_content(host):
-    client = MongoClient(host)
+    client = MongoClient([host[0]+":27017", host[1]+":27017", host[2]+":27017"], replicaset=rs_name)
     db = client.marvel
     doc_ids = db.characters.distinct("id", {})
     doc_id = random.choice(doc_ids)
