@@ -7,6 +7,10 @@ build:
   - image: vfiftyfive/flask_marvel
     custom:
       buildCommand: sh build.sh
+  - image: vfiftyfive/marvel_init_db
+    context: marvel_init_db
+    custom:
+      buildCommand: sh ../build.sh
   local:
     push: true
 deploy:

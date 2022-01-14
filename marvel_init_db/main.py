@@ -61,17 +61,17 @@ def add_mongo_document(replset, document):
     result = db.characters.insert_one(document)
     print(f"Created document {document} as {result.inserted_id}")
     
-def configure_replicaset(mongo_0, mongo_1, mongo_2, replset):
-    client = MongoClient(mongo_0)
-    config = { '_id': replset, 'members': [
-        { '_id': 0, 'host': mongo_0+":27017" },
-        { '_id': 1, 'host': mongo_1+":27017" },
-        { '_id': 2, 'host': mongo_2+":27017" }
-        ]}
-    client.admin.command("replSetInitiate", config)
+# def configure_replicaset(mongo_0, mongo_1, mongo_2, replset):
+#     client = MongoClient(mongo_0)
+#     config = { '_id': replset, 'members': [
+#         { '_id': 0, 'host': mongo_0+":27017" },
+#         { '_id': 1, 'host': mongo_1+":27017" },
+#         { '_id': 2, 'host': mongo_2+":27017" }
+#         ]}
+#     client.admin.command("replSetInitiate", config)
     
 def main():
-    global user_mongo_0, user_mongo_1, user_mongo_2, rs_name, delay
+    global rs_name, delay, limit
     time.sleep(delay)
     ts = time.time()
     url_params = "?limit=" + str(limit) + "&ts=" + str(ts) + "&apikey=" + public_key + "&hash=" + str(params_hash(ts))
