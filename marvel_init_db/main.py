@@ -4,8 +4,6 @@ from pymongo import MongoClient
 import requests
 import hashlib
 import time
-import sys
-import random
 import os
 
 base_path = "https://gateway.marvel.com/v1/public/"
@@ -15,11 +13,9 @@ public_key = "ff2b3fe68377a7e6b40b07fff4aeb218"
 characters_path = "characters"
 limit = 100
 host_list = [os.getenv("MONGO_SEED0"), os.getenv("MONGO_SEED1"), os.getenv("MONGO_SEED2")]
-try:
-    host = ",".join(host_list)
-except TypeError as e:
-    print(f"Mongo environment variables not set properly: {e}")
-    sys.exit(1)
+offset = int(os.getenv("OFFSET"))
+mongo_username = os.getenv("MONGO_USERNAME")
+mongo_password = os.getenv("MONGO_PASSWORD")
 rs_name = "mongodb"
 delay = 30
 
@@ -51,34 +47,28 @@ def params_hash(ts):
     """params_hash calculates the hash required by the Marvel APIs (timestamp + private key + public key).
     """
     return hashlib.md5((str(ts) + private_key + public_key).encode('utf-8')).hexdigest()
-
-def add_mongo_document(replset, document):
+    
+def add_mongo_document(replset, document, mongo_username, mongo_password):
     """add_mongo_document adds a document in the 'characters' collection of the 'marvel' MongoDB database.
     """
-    global host
-    client = MongoClient([host[0]+":27017", host[1]+":27017", host[2]+":27017"], replicaset=rs_name)
+    client = MongoClient([host_list[0]+":27017", 
+                        host_list[1]+":27017", 
+                        host_list[2]+":27017"], 
+                        replicaset=rs_name,
+                        username=mongo_username,
+                        password=mongo_password)
     db = client.marvel
     result = db.characters.insert_one(document)
     print(f"Created document {document} as {result.inserted_id}")
     
-# def configure_replicaset(mongo_0, mongo_1, mongo_2, replset):
-#     client = MongoClient(mongo_0)
-#     config = { '_id': replset, 'members': [
-#         { '_id': 0, 'host': mongo_0+":27017" },
-#         { '_id': 1, 'host': mongo_1+":27017" },
-#         { '_id': 2, 'host': mongo_2+":27017" }
-#         ]}
-#     client.admin.command("replSetInitiate", config)
-    
 def main():
-    global rs_name, delay, limit
+    global rs_name, delay, limit, offset, mongo_username, mongo_password
     time.sleep(delay)
     ts = time.time()
     url_params = "?limit=" + str(limit) + "&ts=" + str(ts) + "&apikey=" + public_key + "&hash=" + str(params_hash(ts))
-    data_list = (get_marvel_data(url_params, int(sys.argv[2])))
-    # configure_replicaset(user_mongo_0, user_mongo_1, user_mongo_2, rs_name)
+    data_list = (get_marvel_data(url_params, offset))
     for d in data_list:
-        add_mongo_document(rs_name, d)
+        add_mongo_document(rs_name, d, mongo_username, mongo_password)
     
 if __name__ == "__main__":
     main()

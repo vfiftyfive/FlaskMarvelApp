@@ -5,8 +5,9 @@ metadata:
 build:
   artifacts:
   - image: vfiftyfive/flask_marvel
+    context: app
     custom:
-      buildCommand: sh build.sh
+      buildCommand: sh ../build.sh
   - image: vfiftyfive/marvel_init_db
     context: marvel_init_db
     custom:
@@ -17,3 +18,4 @@ deploy:
   kustomize:
     paths: 
     - "/Users/nvermande/Documents/Dev/Ondat/CFD/app_manifests/overlay/dev"
+    

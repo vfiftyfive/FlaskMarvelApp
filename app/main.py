@@ -8,6 +8,9 @@ import random
 card1, card2, card3, card4, card5, card6 = [], [], [], [], [], []
 app = Flask(__name__)
 host_list = [os.getenv("MONGO_SEED0"), os.getenv("MONGO_SEED1"), os.getenv("MONGO_SEED2")]
+mongo_username = os.getenv("MONGO_USERNAME")
+mongo_password = os.getenv("MONGO_PASSWORD")
+
 try:
     host = ",".join(host_list)
 except TypeError as e:
@@ -16,7 +19,12 @@ except TypeError as e:
 rs_name = "mongodb"
     
 def get_content(host):
-    client = MongoClient([host[0]+":27017", host[1]+":27017", host[2]+":27017"], replicaset=rs_name)
+    client = MongoClient([host_list[0]+":27017", 
+                        host_list[1]+":27017", 
+                        host_list[2]+":27017"], 
+                        replicaset=rs_name,
+                        username=mongo_username,
+                        password=mongo_password)
     db = client.marvel
     doc_ids = db.characters.distinct("id", {})
     doc_id = random.choice(doc_ids)
