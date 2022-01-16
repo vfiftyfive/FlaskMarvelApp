@@ -15,7 +15,7 @@ limit = 100
 host_list = [os.getenv("MONGO_SEED0"), os.getenv("MONGO_SEED1"), os.getenv("MONGO_SEED2")]
 offset = int(os.getenv("OFFSET"))
 mongo_username = os.getenv("MONGO_USERNAME")
-mongo_password = os.getenv("MONGO_PASSWORD")
+mongo_password = os.getenv("password")
 rs_name = "mongodb"
 delay = 30
 

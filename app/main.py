@@ -9,7 +9,7 @@ card1, card2, card3, card4, card5, card6 = [], [], [], [], [], []
 app = Flask(__name__)
 host_list = [os.getenv("MONGO_SEED0"), os.getenv("MONGO_SEED1"), os.getenv("MONGO_SEED2")]
 mongo_username = os.getenv("MONGO_USERNAME")
-mongo_password = os.getenv("MONGO_PASSWORD")
+mongo_password = os.getenv("password")
 
 try:
     host = ",".join(host_list)
