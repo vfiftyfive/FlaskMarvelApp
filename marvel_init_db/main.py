@@ -49,7 +49,7 @@ def params_hash(ts):
     return hashlib.md5((str(ts) + private_key + public_key).encode('utf-8')).hexdigest()
     
 def add_mongo_document(replset, document, mongo_username, mongo_password):
-    """add_mongo_document adds a document in the 'characters' collection of the 'marvel' MongoDB database.
+    """add_mongo_document adds a document in the 'characters' collection of the 'provided' MongoDB database.
     """
     client = MongoClient([host_list[0]+":27017", 
                         host_list[1]+":27017", 
