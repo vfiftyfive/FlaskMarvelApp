@@ -1,4 +1,4 @@
-apiVersion: skaffold/v2beta26
+apiVersion: skaffold/v2beta28
 kind: Config
 metadata:
   name: demo-marvel-app
@@ -14,8 +14,6 @@ build:
       buildCommand: sh ../build.sh
   local:
     push: true
-cluster:
-  - namespace: dev
 deploy:
   kustomize:
     paths: 
