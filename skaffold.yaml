@@ -14,6 +14,8 @@ build:
       buildCommand: sh ../build.sh
   local:
     push: true
+cluster:
+  - namespace: dev
 deploy:
   kustomize:
     paths: 
